@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combustivel</title>
+</head>
+<body>
+    <h1>Gasto de Combustivel</h1>
+
+<label for="tipoCombustivel"> Combustível:</label>
+<select id="tipoCombustivel">
+  <option value="gasolina">Gasolina</option>
+  <option value="alcool">Álcool</option>
+  <option value="diesel">Diesel</option>
+</select><br>
+
+<label for="consumo">Consumo (km/l):</label>
+<input type="number" id="consumo" step="0.01"><br>
+
+<label for="distancia">Distância da Viagem (km):</label>
+<input type="number" id="distancia"><br>
+
+<button onclick="calcularGasto()">Calcular Gasto</button>
+
+<p id="resultado"></p>
+
+<script>
+function calcularGasto() {
+    var tipoCombustivel = document.getElementById("tipoCombustivel").value;
+    var consumo = parseFloat(document.getElementById("consumo").value);
+    var distancia = parseInt(document.getElementById("distancia").value);
+    var resultado = document.getElementById("resultado");
+
+    var precoCombustivelPorLitro;
+    switch (tipoCombustivel) {
+        case "gasolina":
+            precoCombustivelPorLitro = 4.50; // Preço médio da gasolina
+            break;
+        case "alcool":
+            precoCombustivelPorLitro = 3.00; // Preço médio do álcool
+            break;
+        case "diesel":
+            precoCombustivelPorLitro = 3.80; // Preço médio do diesel
+            break;
+        default:
+            precoCombustivelPorLitro = 0;
+    }
+
+    if (precoCombustivelPorLitro === 0) {
+        resultado.textContent = "Por favor, selecione um tipo de combustível válido.";
+        return;
+    }
+
+    var gastoTotal = (distancia / consumo) * precoCombustivelPorLitro;
+    resultado.textContent = "O gasto da viagem será de R$ " + gastoTotal.toFixed(2);
+}
+</script>
+</body>
+</html>
